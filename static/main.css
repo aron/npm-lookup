@@ -1,0 +1,58 @@
+body {
+  padding: 20px 40px;
+  margin: 0 auto;
+}
+
+body,
+input[type="text"],
+button {
+  font-family: monospace;
+}
+
+.package {
+  position: relative;
+  list-style-type: none;
+}
+
+.package::before,
+.package::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+}
+
+.package::before {
+  border-top: 1px solid #000;
+  top: 9px;
+  width: 8px;
+  height: 0;
+}
+
+.package::after {
+  border-left: 1px solid #000;
+  height: 100%;
+  width: 0px;
+  top: 2px;
+}
+
+.package--no-children::after {
+  height: 16px;
+}
+
+.package:last-of-type::after {
+  height: 8px;
+}
+
+.package__name {
+  margin: 0;
+}
+
+.package__error {
+  color: gray;
+}
+
+.package__dependencies {
+  position: relative;
+  padding-left: 20px;
+  margin: 0;
+}

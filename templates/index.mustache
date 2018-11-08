@@ -1,0 +1,17 @@
+<section>
+  {{#package}}
+    {{#error}}
+      <h1>No results for “{{query}}”</h1>
+      <p>Try checking the spelling or try another package…</p>
+    {{/error}}
+    {{^error}}
+      <h1>Showing results for “{{query}}”</h1>
+      <ul>
+        {{> package }}
+      </ul>
+    {{/error}}
+  {{/package}}
+  {{#isPkgNotFound}}
+    <h1>Package “{{query}}” not found</h1>
+  {{/isPkgNotFound}}
+</section>

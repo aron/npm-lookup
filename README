@@ -1,0 +1,109 @@
+# npm Dependency Lookup
+
+## Overview
+
+A web application that will display dependant packages for a given npm package.
+
+On providing a package name to the search prompt on the homepage the server
+will look up the dependency tree for the package and display the results.
+By default it will look up the most recent version of the package and will
+try and find the latest sub-dependencies that fit within the semver versioning
+provided in the package.json.
+
+A specific version can be provided using the <package>@<version> syntax.
+
+## Usage
+
+There is an example server running on Heroku available at:
+
+    https://arcane-dawn-12393.herokuapp.com/
+
+## Todo
+
+- [ ] Improve the handling when fetching large packages e.g. "jest".
+- [ ] Batching of package requests.
+- [ ] Clearer error handling of failed requests.
+- [ ] Improve garbage collection of in in-memory cache.
+- [ ] Actual CSS.
+- [ ] Better loading state for client side UI.
+- [ ] Real error handling for client side UI.
+- [ ] End-to-end tests should not depend on the network.
+- [ ] Convert the codebase to TypeScript.
+
+## Configuration
+
+Configuration is handled by environment variables. The following options
+are supported:
+
+    PORT - Select the port to run the server on. e.g. PORT=8001
+
+## Development
+
+To install the developer packages you'll need node 14+ and npm installed on
+your machine. Then run:
+
+    $ npm install
+
+To run the server:
+
+    $ npm start
+
+Code is organized into two sections, server side node code is contained in
+the /server directory and client side CSS & JS are in /static. The Mustache
+templates for the server side rendering can be found in /templates.
+
+The core files are as follows:
+
+1. server/index.js is the main entry point to the application it creates the server
+   and passes incoming requests over to handlers.
+2. server/handlers.js handle each route pulling in data from the npm API and rendering
+   an appropriate response.
+3. server/render.js takes data from the handlers and renders a Mustache HTML template
+   with the content provided.
+4. lib/registry_client.js interfaces with the npm API and makes requests and processes the
+   returned data.
+5. lib/list_dependencies.js deals with traversing and requesting metadata to build
+   the dependency tree for the package name provided.
+6. static/main.js is the primary entry point for the front-end code, it mostly
+   just handles loading the search endpoint via AJAX.
+
+## Dependencies
+
+The app is designed to run on the latest version of Node and npm which were
+v14.12.0 and 6.14.8 at last update. This is mostly to take advantage of the
+ECMAScript modules without requiring any flags.
+
+mustache - for simple-ish templating[1]
+mime - for handling static file mime types[2]
+semver - for parsing and comparing semver strings [3]
+mocha - for unit testing [4]
+sinon - for mocks and stubs [5]
+
+These were all chosen to keep the number of dependencies to a minimum to
+support portability and ease of deployment.
+
+[1]: https://github.com/janl/mustache.js
+[2]: https://www.npmjs.com/package/mime
+[3]: https://www.npmjs.com/package/semver
+[4]: https://mochajs.org/
+[5]: https://sinonjs.org/
+
+## Testing
+
+To run the test suite:
+
+    $ npm test      # run all tests
+    $ npm test:unit # run mocha unit tests
+    $ npm test:e2e  # run end-to-end tests
+
+Tests are split into two kinds:
+
+1. Unit tests are used on the core library files to verify functionality. Long
+   term these should cover most of the core logic in fine detail.
+2. End-to-end tests are run on a running instance of the server. These should be
+   kept to just validating core flows as they are slow and costly to run. They
+   also run against the live npm registry at the moment which needs mocking out.
+
+## License
+
+Available under the MIT license. See LICENSE file for details.
