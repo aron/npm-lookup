@@ -1,0 +1,11 @@
+<section>
+  {{#package}}
+    <h1>Showing results for “{{name}}”</h1>
+    <ul>
+      {{> package }}
+    </ul>
+  {{/package}}
+  {{#isPkgNotFound}}
+    <h1>Package “{{query}}” not found</h1>
+  {{/isPkgNotFound}}
+</section>

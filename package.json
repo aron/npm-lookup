@@ -1,0 +1,20 @@
+{
+  "name": "npm-lookup",
+  "version": "0.0.0",
+  "description": "Looks up package dependencies",
+  "main": "lib/list_dependencies.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "mustache": "^3.0.0",
+    "node-static": "^0.7.11",
+    "semver": "^5.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node ./server/index.js"
+  },
+  "author": "Aron Carroll <code@aroncarroll.com> (http://aroncarroll.com/)",
+  "license": "MIT"
+}

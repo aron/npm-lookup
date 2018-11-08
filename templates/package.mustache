@@ -1,0 +1,8 @@
+<li class="package {{^dependencies}}package--no-children{{/dependencies}}">
+  <p class="package__name">{{name}}<span class="package__at">@</span>{{version}}</p>
+  <ul class="package__dependencies">
+  {{#dependencies}}
+    {{> package }}
+  {{/dependencies}}
+  </ul>
+</li>

@@ -1,0 +1,99 @@
+npm Dependency Lookup
+=====================
+
+Overview
+--------
+
+A web application that will display dependant packages for a given npm package.
+
+Providing a package to the search prompt on the homepage the server will look
+up the dependency tree for the package and display the results. Currently it
+will only look up the most recent version of the package and will try and
+find the latest sub-dependencies that fit within the semver versioning
+provided in the package.json.
+
+Usage
+-----
+
+There is an example server running on Heroku available at:
+
+    https://arcane-dawn-12393.herokuapp.com/
+
+Todo
+----
+
+ - [ ] Better batching of package requests.
+ - [ ] Error handling of failed requests.
+ - [ ] Purging of stale data in in-memory cache.
+ - [ ] Actual CSS.
+ - [ ] Loading state for client side UI.
+ - [ ] Real error handling for client side UI.
+
+Configuration
+-------------
+
+Configuration is handled by environment variables. The following options
+are supported:
+
+PORT - Select the port to run the server on. e.g. PORT=8001
+
+Development
+-----------
+
+To install the developer packages you'll need node and npm installed on your
+machine. Then run:
+
+    $ npm install
+
+To run the server:
+
+    $ npm start
+
+Code is organized into two sections, server side node code is contained in
+the /server directory and client side CSS & JS are in /static. The Mustache
+templates for the server side rendering can be found in /templates.
+
+The core files are as follows:
+
+1. server/index.js is the main entry point to the application it creates the server
+   and passes incoming requests over to handlers.
+2. server/handlers.js handle each route pulling in data from the npm API and rendering
+   an appropriate response.
+3. server/render.js takes data from the handlers and renders a Mustache HTML template
+   with the content provided.
+4. lib/registry_client.js interfaces with the npm API and makes requests and processes the
+   returned data.
+5. lib/list_dependencies.js deals with traversing and requesting metadata to build
+   the dependency tree for the package name provided.
+6. static/main.js is the primary entry point for the front-end code, it mostly
+   just handles loading the search endpoint via AJAX.
+
+Dependencies
+------------
+
+The app is designed to run on the LTS version of Node and npm which were
+v10.13.0 and 6.4.1 at last update.
+
+mustache - for simple-ish templating[1]
+node-static - for serving the CSS & JavaScript [2]
+semver - for parsing and comparing semver strings [3]
+
+These were all chosen to keep the number of dependencies to a minimum to
+support portability and ease of deployment.
+
+[1]: https://github.com/janl/mustache.js
+[2]: https://github.com/cloudhead/node-static/
+[3]: https://www.npmjs.com/package/semver
+
+Testing
+-------
+
+There are no tests as yet, but you can verify the dependencies lookup is working by
+running the list_dependencies function on its own:
+
+    % node ./lib/list_dependencies.js
+
+License
+-------
+
+Available under the MIT license. See LICENSE file for details.
