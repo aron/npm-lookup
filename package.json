@@ -5,7 +5,7 @@
   "description": "Looks up npm package dependencies",
   "main": "lib/list_dependencies.js",
   "dependencies": {
-    "mime": "^2.4.6",
+    "mime": "^2.6.0",
     "mustache": "^3.2.1",
     "semver": "^5.7.1"
   },
