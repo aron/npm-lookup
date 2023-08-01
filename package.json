@@ -7,7 +7,7 @@
   "dependencies": {
     "mime": "^2.4.6",
     "mustache": "^3.2.1",
-    "semver": "^5.7.1"
+    "semver": "^5.7.2"
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.3",
